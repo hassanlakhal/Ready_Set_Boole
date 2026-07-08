@@ -3,4 +3,5 @@ resolver = "3"
 members = [
     "common",
     "ex00",
+    "ex01",
 ]
