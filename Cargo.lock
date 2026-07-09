@@ -31,3 +31,10 @@ version = "0.1.0"
 dependencies = [
  "common",
 ]
+
+[[package]]
+name = "ex04"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
