@@ -30,7 +30,7 @@ pub fn print_truth_table(formula: &str){
     for comob in 0..(1u32 << n){
         let mut vars_map : HashMap<char, bool> = HashMap::new();
         for (i ,v) in vars.iter().enumerate(){
-            let bit = (comob >> i) & 1 == 1;
+            let bit = (comob >> (n - 1 - i)) & 1 == 1;
             vars_map.insert(*v, bit);
         }
 
