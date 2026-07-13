@@ -131,6 +131,12 @@ pub fn convert_to_nnf(node: Node) -> Node {
                 )
             )
         }
+        Node::Xor(a,b) => {
+            convert_to_nnf(Node::Or(
+                Box::new(Node::And(a.clone(), Box::new(Node::Not(b.clone())))),
+                Box::new(Node::And(Box::new(Node::Not(a)), b))
+            ))
+        }
         _ => node
     }
 }
