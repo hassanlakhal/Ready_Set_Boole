@@ -45,3 +45,10 @@ version = "0.1.0"
 dependencies = [
  "common",
 ]
+
+[[package]]
+name = "ex06"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
