@@ -59,3 +59,10 @@ version = "0.1.0"
 dependencies = [
  "common",
 ]
+
+[[package]]
+name = "ex08"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
