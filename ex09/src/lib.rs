@@ -36,6 +36,17 @@ fn complement(set_a: Vec<i32>, universe: &[i32]) -> Vec<i32> {
     result
 }
 
+fn symmetric_difference(set_a: Vec<i32>, set_b: Vec<i32>) -> Vec<i32> {
+    let mut result: Vec<i32> = set_a.iter()
+        .filter(|x| !set_b.contains(x))
+        .cloned()
+        .chain(set_b.iter().filter(|x| !set_a.contains(x)).cloned())
+        .collect();
+    result.sort();
+    result.dedup();
+    result
+}
+
 fn logic_set(node: &Node, vars: &[char], sets: &[Vec<i32>], universe: &[i32]) -> Vec<i32> {
     match node {
         Node::Var(c) => {
@@ -50,9 +61,28 @@ fn logic_set(node: &Node, vars: &[char], sets: &[Vec<i32>], universe: &[i32]) ->
             logic_set(a, vars, sets, universe),
             logic_set(b, vars, sets, universe),
         ),
-        Node::Not(a) => complement(logic_set(a, vars, sets, universe), universe),
-
-        
+        Node::Not(a) => complement(
+            logic_set(a, vars, sets, universe),
+            universe
+        ),
+        Node::Xor(a, b) => symmetric_difference(
+            logic_set(a, vars, sets, universe),
+            logic_set(b, vars, sets, universe)
+        ),
+        Node::Imply(a, b) => union(
+            complement(
+                logic_set(a, vars, sets, universe),
+                universe
+            ),
+            logic_set(b, vars, sets, universe)
+        ),
+        Node::Equiv(a, b) => complement(
+            symmetric_difference(
+                logic_set(a, vars, sets, universe),
+                logic_set(b, vars, sets, universe)
+            ),
+            universe
+        ),
         _other => unimplemented!("logic_set: unhandled node variant "),
     }
 }
